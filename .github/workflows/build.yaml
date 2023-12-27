@@ -16,6 +16,7 @@ jobs:
 
       - name: Build package
         run: |
+          export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
           export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootless
           make clean package THEOS_PACKAGE_SCHEME=rootless FINALPACKAGE=1
 
@@ -38,6 +39,7 @@ jobs:
     
       - name: Build package
         run: |
+          export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
           export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
           make clean package FINALPACKAGE=1
     
