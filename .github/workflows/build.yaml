@@ -25,7 +25,7 @@ jobs:
           path: ./packages/com.beeper.beepserv_*.deb
           name: phone-registration-provider
           if-no-files-found: error
-  theos:
+  theos-rootful:
     runs-on: macos-11
     
     steps:
