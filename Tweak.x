@@ -472,3 +472,36 @@ NSDictionary *getIdentifiers() {
 	identifiers = getIdentifiers();
 	LOG(@"Got identifiers: %@", identifiers);
 }
+
+// Logging events that could be useful for debugging
+%hook IDSRegistrationController
+	- (void) _notifyRegistrationStarting:(id)arg1 {
+		LOG(@"IDSRegistrationController _notifyRegistrationStarting: %@", arg1);
+		%orig;
+	}
+	
+	- (void) _notifyRegistrationUpdated:(id)arg1 {
+		LOG(@"IDSRegistrationController _notifyRegistrationUpdated: %@", arg1);
+		%orig;
+	}
+	
+	- (void) _notifyRegistrationSuccess:(id)arg1 {
+		LOG(@"IDSRegistrationController _notifyRegistrationSuccess: %@", arg1);
+		%orig;
+	}
+	
+	- (void) _notifyRegistrationFailure:(id)arg1 error:(long long)arg2 info:(id)arg3 {
+		LOG(@"IDSRegistrationController _notifyRegistrationFailure: %@, error code: %lld, info: %@", arg1, arg2, arg3);
+		%orig;
+	}
+	
+	- (bool) registerInfo:(id)arg1 requireSilentAuth:(bool)arg2 {
+		LOG(@"IDSRegistrationController registerInfo: %@, requireSilentAuth: %@", arg1, arg2 ? @"true" : @"false");
+		return %orig;
+	}
+	
+	- (bool) registerInfo:(id)arg1 {
+		LOG(@"IDSRegistrationController registerInfo: %@", arg1);
+		return %orig;
+	}
+%end
